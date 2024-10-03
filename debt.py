@@ -4,7 +4,7 @@ import plotly.graph_objects as go
 # Initial parameters
 principal = 1000
 leverage = 3
-initial_price = 4.656057305202215
+initial_price = 5
 total_asset_value = principal * leverage
 
 # Initial debt values
@@ -18,12 +18,12 @@ k = (principal * leverage / 2) * (principal * leverage / 2 / initial_price)
 # Price change rate range from -90% to 90%
 price_change_rates = np.linspace(-0.9, 0.9, 100)
 debt_rates = []
-actual_prices = []  # List to store actual prices corresponding to the change rates
+actual_prices = []
 
 # Calculate debt rates for each price change rate
 for r in price_change_rates:
     new_price = (1 + r) * initial_price
-    actual_prices.append(new_price)  # Store the actual price
+    actual_prices.append(new_price)
 
     # Recalculate USDT and TON amounts using the CPMM formula
     new_ton_amount = np.sqrt(k / new_price)
@@ -51,7 +51,7 @@ for i in range(len(debt_rates) - 1):
         slope = (debt_rates[i + 1] - debt_rates[i]) / (actual_prices[i + 1] - actual_prices[i])
         intersect_x = actual_prices[i] + (threshold - debt_rates[i]) / slope
         intersect_y = threshold
-        intersections_x.append(intersect_x)  # Keep as actual price
+        intersections_x.append(intersect_x)
         intersections_y.append(intersect_y)
 
 # Plot the curve using Plotly
